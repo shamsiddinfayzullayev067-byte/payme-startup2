@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="uz" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payme (Freedom Pay) - Elektron To'lovlar va Moliya Ekotizimi</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0B0F19',
+                            card: '#151C2C',
+                            accent: '#00F2FE',
+                            purple: '#7928CA',
+                            pink: '#FF0080',
+                            blue: '#1A56DB',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0B0F19;
+            color: #F3F4F6;
+        }
+        .glass-card {
+            background: rgba(21, 28, 44, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-nav {
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #00F2FE 0%, #4FACFE 50%, #00C6FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .text-gradient-purple {
+            background: linear-gradient(135deg, #7928CA 0%, #FF0080 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-gradient-btn {
+            background: linear-gradient(135deg, #00C6FF 0%, #0072FF 100%);
+        }
+        .bg-gradient-btn:hover {
+            background: linear-gradient(135deg, #0072FF 0%, #00C6FF 100%);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-cyan-500 selection:text-white">
+
+    <!-- NAVIGATION BAR -->
+    <header class="fixed top-0 left-0 w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center font-bold text-xl text-white shadow-lg shadow-cyan-500/30 group-hover:scale-105 transition-transform">
+                        P
+                    </div>
+                    <span class="text-2xl font-extrabold tracking-tight text-white">
+                        Payme <span class="text-xs font-semibold px-2 py-0.5 rounded bg-blue-500/20 text-cyan-400 border border-cyan-500/30">Freedom Pay</span>
+                    </span>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors">Biz haqimizda</a>
+                    <a href="#services" class="text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors">Xizmatlar</a>
+                    <a href="#media" class="text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors">Media & Taqdimot</a>
+                    <a href="#products" class="text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors">Mahsulotlar</a>
+                    <a href="#contact" class="text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors">Aloqa</a>
+                </nav>
+
+                <!-- Action Button -->
+                <div class="hidden md:flex items-center">
+                    <a href="#contact" class="px-5 py-2.5 text-sm font-semibold text-white rounded-xl bg-gradient-btn hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 active:scale-95">
+                        Boshlash
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden glass-card border-t border-gray-800 px-4 pt-2 pb-6 space-y-3">
+            <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800/50">Biz haqimizda</a>
+            <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800/50">Xizmatlar</a>
+            <a href="#media" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800/50">Media & Taqdimot</a>
+            <a href="#products" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800/50">Mahsulotlar</a>
+            <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800/50">Aloqa</a>
+            <a href="#contact" class="block w-full text-center mt-4 px-5 py-2.5 text-sm font-semibold text-white rounded-xl bg-gradient-btn">
+                Boshlash
+            </a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="about" class="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
+        <!-- Ambient Light Gradients -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/15 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute top-1/3 right-10 w-[400px] h-[400px] bg-purple-500/15 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Content Left -->
+                <div class="lg:col-span-7 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold mb-6">
+                        <span class="flex h-2 w-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                        Freedom Pay Ekotizimi Bilan Birga
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight mb-6">
+                        Moliyaviy Operatsiyalarni <br class="hidden sm:block"/>
+                        <span class="text-gradient">Aqlli va Xavfsiz</span> Boshqaring
+                    </h1>
+                    <p class="text-lg text-gray-400 mb-8 max-w-2xl mx-auto lg:mx-0">
+                        Payme (Freedom Pay) – bu jismoniy shaxslar va biznes uchun mo'ljallangan zamonaviy to'lov ekotizimi. Bir zumda pul o'tkazmalari, QR-to'lovlar hamda qulay e-commerce integratsiyasi.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#services" class="inline-flex items-center justify-center px-6 py-3.5 text-base font-medium text-white rounded-xl bg-gradient-btn hover:shadow-lg hover:shadow-cyan-500/25 transition-all">
+                            Xizmatlarni ko'rish
+                            <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
+                        </a>
+                        <a href="#media" class="inline-flex items-center justify-center px-6 py-3.5 text-base font-medium text-gray-300 rounded-xl glass-card hover:text-white hover:bg-gray-800/80 transition-all">
+                            <i data-lucide="play-circle" class="mr-2 w-5 h-5 text-cyan-400"></i>
+                            Taqdimotni tomosha qilish
+                        </a>
+                    </div>
+
+                    <!-- Key Stats -->
+                    <div class="grid grid-cols-3 gap-4 mt-12 pt-8 border-t border-gray-800">
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-bold text-white">10M+</div>
+                            <div class="text-xs sm:text-sm text-gray-400">Faol foydalanuvchi</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-bold text-white">99.9%</div>
+                            <div class="text-xs sm:text-sm text-gray-400">Tizim barqarorligi</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-bold text-white">50K+</div>
+                            <div class="text-xs sm:text-sm text-gray-400">Biznes hamkorlar</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Interactive Visual Right -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-full max-w-md">
+                        <!-- Animated Card Mockup -->
+                        <div class="glass-card rounded-3xl p-6 border border-white/10 shadow-2xl relative z-10 transform hover:rotate-1 transition-transform duration-500">
+                            <div class="flex justify-between items-center mb-8">
+                                <span class="text-sm font-semibold tracking-wider text-gray-400">PAYME VISA</span>
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 opacity-80"></div>
+                            </div>
+                            <div class="mb-8">
+                                <p class="text-xs text-gray-400 mb-1">Umumiy balans</p>
+                                <p class="text-3xl font-extrabold text-white">24,850,000 <span class="text-sm font-normal text-cyan-400">UZS</span></p>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <p class="text-[10px] text-gray-400 uppercase">Karta egasi</p>
+                                    <p class="text-sm font-medium text-gray-200">FREEDOM PAY CLIENT</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-[10px] text-gray-400">MUDDATI</p>
+                                    <p class="text-sm font-medium text-gray-200">12/28</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Secondary Decorative Floating Card -->
+                        <div class="glass-card rounded-2xl p-4 border border-white/10 absolute -bottom-6 -left-6 z-20 w-48 animate-float shadow-xl hidden sm:block">
+                            <div class="flex items-center gap-3">
+                                <div class="p-2 rounded-lg bg-green-500/20 text-green-400">
+                                    <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-400">Muvaffaqiyatli to'lov</p>
+                                    <p class="text-sm font-bold text-white">+ 150,000 UZS</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="services" class="py-20 relative bg-gray-950/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-semibold uppercase tracking-widest text-cyan-400 mb-2">Imkoniyatlar</h2>
+                <h3 class="text-3xl sm:text-4xl font-bold text-white">Xizmatlarimiz Bilan Tanishib Chiqing</h3>
+                <p class="text-gray-400 mt-4">Biz jismoniy shaxslar hamda yirik va kichik biznes subyektlari uchun qulay moliya vositalarini taqdim etamiz.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Service 1 -->
+                <div class="glass-card rounded-2xl p-6 hover:border-cyan-500/40 transition-all duration-300 hover:-translate-y-1 group">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="credit-card" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3">Elektron To'lovlar</h4>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Kommunal xizmatlar, davlat to'lovlari, internet va boshqa yuzlab xizmatlar uchun tezkor va xavfsiz to'lovlar.
+                    </p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="glass-card rounded-2xl p-6 hover:border-purple-500/40 transition-all duration-300 hover:-translate-y-1 group">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="qr-code" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3">QR To'lovlar</h4>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Restoran, do'kon va xizmat ko'rsatish shobobchalarida naqd pulsiz, birgina QR skaner orqali to'lovni amalga oshirish.
+                    </p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="glass-card rounded-2xl p-6 hover:border-blue-500/40 transition-all duration-300 hover:-translate-y-1 group">
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="arrow-left-right" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3">Pul O'tkazmalari</h4>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Kartadan kartaga minimal komissiya va lahzalik tezlik bilan xavfsiz pul o'tkazmalarini amalga oshirish.
+                    </p>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="glass-card rounded-2xl p-6 hover:border-pink-500/40 transition-all duration-300 hover:-translate-y-1 group">
+                    <div class="w-12 h-12 rounded-xl bg-pink-500/10 text-pink-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="briefcase" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3">Biznes Xizmatlari</h4>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Saytlar va ilovalar uchun Payment Gateway (Merchant API) ulanishi hamda tahliliy burchak.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- MEDIA SHOWCASE SECTION (Video & Presentation) -->
+    <section id="media" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-semibold uppercase tracking-widest text-cyan-400 mb-2">Interaktiv Media</h2>
+                <h3 class="text-3xl sm:text-4xl font-bold text-white">Loyiha Taqdimoti va 3D Brending</h3>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                
+                <!-- 3D Logo Video Container -->
+                <div class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <i data-lucide="video" class="w-6 h-6 text-cyan-400"></i>
+                            <h4 class="text-xl font-bold text-white">Payme 3D Logo Animatsiyasi</h4>
+                        </div>
+                        <p class="text-sm text-gray-400 mb-6">Google Drive’da joylashgan rasmiy 3D logo MP4 video materiali.</p>
+                    </div>
+
+                    <!-- Video Container -->
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black/50 border border-gray-800 flex items-center justify-center">
+                        
+                        <!-- 
+                            ===================================================================
+                            IZOH / INSTRUCTION FOR GOOGLE DRIVE VIDEO:
+                            Google Drive videosini to'g'ridan-to'g'ri o'ynatish uchun VIDEO_DIRECT_URL
+                            o'rniga to'g'ri yuklash yoki embed havolasini qo'ying.
+                            
+                            Agar <video> elementi orqali qo'ymoqchi bo'lsangiz:
+                            <video controls class="w-full h-full object-cover rounded-xl">
+                                <source src="VIDEO_DIRECT_URL" type="video/mp4">
+                                Sizning brauzeringiz videoni qo'llab-quvvatlamaydi.
+                            </video>
+                            ===================================================================
+                        -->
+
+                        <!-- PLACEHOLDER / SHOWCASE UI FOR VIDEO -->
+                        <div class="text-center p-6 flex flex-col items-center">
+                            <div class="w-16 h-16 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center mb-4 animate-bounce">
+                                <i data-lucide="play" class="w-8 h-8 fill-current"></i>
+                            </div>
+                            <p class="text-sm font-medium text-gray-300">Video joylashtirish uchun tayyor joy</p>
+                            <span class="text-xs text-gray-500 mt-2 font-mono">VIDEO_DIRECT_URL ni almashtiring</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Google Slides Presentation Embed Container -->
+                <div class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <i data-lucide="presentation" class="w-6 h-6 text-purple-400"></i>
+                            <h4 class="text-xl font-bold text-white">Google Slides Taqdimoti</h4>
+                        </div>
+                        <p class="text-sm text-gray-400 mb-6">Loyiha strategiyasi va moliya imkoniyatlari haqida batafsil ma'lumot.</p>
+                    </div>
+
+                    <!-- Slides Iframe Container -->
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black/50 border border-gray-800 flex items-center justify-center">
+                        
+                        <!-- 
+                            ===================================================================
+                            IZOH / INSTRUCTION FOR GOOGLE SLIDES:
+                            Google Slides taqdimotining embed havolasini SLIDES_EMBED_URL o'rniga qo'ying.
+                            Misol: https://docs.google.com/presentation/d/e/2PACX-.../embed?start=false&loop=false&delayms=3000
+                            
+                            <iframe src="SLIDES_EMBED_URL" frameborder="0" class="w-full h-full rounded-xl" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+                            ===================================================================
+                        -->
+
+                        <!-- PLACEHOLDER / SHOWCASE UI FOR SLIDES -->
+                        <div class="text-center p-6 flex flex-col items-center">
+                            <div class="w-16 h-16 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center mb-4">
+                                <i data-lucide="file-text" class="w-8 h-8"></i>
+                            </div>
+                            <p class="text-sm font-medium text-gray-300">Google Slides slayd-shou ramkasi</p>
+                            <span class="text-xs text-gray-500 mt-2 font-mono">SLIDES_EMBED_URL ni almashtiring</span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- GOOGLE SHEETS PRODUCTS SECTION -->
+    <section id="products" class="py-20 relative bg-gray-950/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-semibold uppercase tracking-widest text-cyan-400 mb-2">Tariflar va Mahsulotlar</h2>
+                <h3 class="text-3xl sm:text-4xl font-bold text-white">Google Sheets Mahsulotlar Jadvali</h3>
+                <p class="text-gray-400 mt-4">Bizning barcha xizmat va tariflarimiz haqida doimiy yangilanib turadigan jadval.</p>
+            </div>
+
+            <div class="glass-card rounded-2xl p-4 sm:p-6 overflow-hidden">
+                <div class="w-full h-[450px] rounded-xl overflow-hidden bg-black/40 border border-gray-800 flex items-center justify-center">
+                    
+                    <!-- 
+                        ===================================================================
+                        IZOH / INSTRUCTION FOR GOOGLE SHEETS:
+                        Google Sheets faylingizni internetga e'lon qiling (Publish to web) va 
+                        SHEETS_EMBED_URL o'rniga iframe havolasini qo'ying.
+                        
+                        Misol: https://docs.google.com/spreadsheets/d/e/2PACX-.../pubhtml?widget=true&amp;headers=false
+                        
+                        <iframe src="SHEETS_EMBED_URL" class="w-full h-full border-0 rounded-xl"></iframe>
+                        ===================================================================
+                    -->
+
+                    <!-- PLACEHOLDER / SHOWCASE UI FOR SHEETS -->
+                    <div class="text-center p-8 max-w-md">
+                        <div class="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-4">
+                            <i data-lucide="table" class="w-8 h-8"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">Google Sheets Integratsiyasi</h4>
+                        <p class="text-sm text-gray-400 mb-4">Ushbu blokda o'zingizning jonli Google Sheets jadvalingiz ko'rinadi.</p>
+                        <span class="inline-block px-3 py-1 bg-gray-800 rounded text-xs font-mono text-cyan-400 border border-gray-700">SHEETS_EMBED_URL</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT & GOOGLE FORMS SECTION -->
+    <section id="contact" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <!-- Contact Info Left -->
+                <div class="lg:col-span-5">
+                    <h2 class="text-xs font-semibold uppercase tracking-widest text-cyan-400 mb-2">Bog'lanish</h2>
+                    <h3 class="text-3xl sm:text-4xl font-bold text-white mb-6">Savollaringiz Bormi? Biz Bilan Aloqaga Chiqing</h3>
+                    <p class="text-gray-400 mb-8 leading-relaxed">
+                        Taklif va mulohazalaringizni qoldiring yoki bizning qo'llab-quvvatlash markazimiz bilan darhol bog'laning.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center shrink-0">
+                                <i data-lucide="map-pin" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-base font-semibold text-white">Manzil</h4>
+                                <p class="text-sm text-gray-400">Toshkent shahri, Mirobod tumani, Oybek ko'chasi 24</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center shrink-0">
+                                <i data-lucide="phone" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-base font-semibold text-white">Telefon</h4>
+                                <p class="text-sm text-gray-400">+998 (71) 200-00-00 / +998 (78) 120-00-00</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center shrink-0">
+                                <i data-lucide="mail" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-base font-semibold text-white">Elektron Pochta</h4>
+                                <p class="text-sm text-gray-400">support@payme.uz / info@freedompay.uz</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google Forms Embed Right -->
+                <div class="lg:col-span-7">
+                    <div class="glass-card rounded-2xl p-6 sm:p-8">
+                        <h4 class="text-xl font-bold text-white mb-4">Fikr-mulohaza Shakli</h4>
+                        <p class="text-sm text-gray-400 mb-6">Quyidagi shakl orqali o'z fikringizni yuborishingiz mumkin.</p>
+
+                        <!-- Forms Container -->
+                        <div class="w-full min-h-[480px] rounded-xl overflow-hidden bg-black/40 border border-gray-800 flex items-center justify-center">
+                            
+                            <!-- 
+                                ===================================================================
+                                IZOH / INSTRUCTION FOR GOOGLE FORMS:
+                                Google Forms formasining embed havolasini FORMS_EMBED_URL o'rniga qo'ying.
+                                Misol: https://docs.google.com/forms/d/e/1FAIpQLS.../viewform?embedded=true
+                                
+                                <iframe src="FORMS_EMBED_URL" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Yuklanmoqda…</iframe>
+                                ===================================================================
+                            -->
+
+                            <!-- PLACEHOLDER / SHOWCASE UI FOR GOOGLE FORMS -->
+                            <div class="text-center p-8 max-w-sm">
+                                <div class="w-16 h-16 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center mx-auto mb-4">
+                                    <i data-lucide="message-square" class="w-8 h-8"></i>
+                                </div>
+                                <h4 class="text-lg font-bold text-white mb-2">Google Forms Integratsiyasi</h4>
+                                <p class="text-sm text-gray-400 mb-4">Google Forms shaklini havola orqali ulash uchun tayyor blok.</p>
+                                <span class="inline-block px-3 py-1 bg-gray-800 rounded text-xs font-mono text-cyan-400 border border-gray-700">FORMS_EMBED_URL</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-gray-800/80 bg-gray-950 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                
+                <!-- Footer Brand -->
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center font-bold text-white shadow-md">
+                        P
+                    </div>
+                    <span class="text-lg font-bold text-white">Payme | Freedom Pay</span>
+                </div>
+
+                <!-- Copyright Text -->
+                <p class="text-xs text-gray-500 text-center md:text-right">
+                    &copy; 2026 Payme (Freedom Pay) Barcha huquqlar himoyalangan. Fintex va raqamli xizmatlar platformasi.
+                </p>
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lucide Icons Script Initialization -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Mobile Menu Toggle Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close Mobile Menu on Nav Item Click
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
